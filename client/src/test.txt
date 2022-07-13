@@ -1,0 +1,242 @@
+/* sidebare */
+.sidebare{
+  width: 230px;
+}
+.sidebare .nav-item{
+  margin-bottom: 10px;
+}
+.sidebare .nav-item a{
+  color: black;
+}
+.sidebare .nav-item a:hover{
+  background: black;
+  color: white;
+}
+.sidebare hr{
+  width: 150px;
+  margin-left: 20px;
+
+}
+/* end sidebare */
+/* espace client */
+.espace-client{
+  margin: 100px 0;
+  padding: 10px 100px 10px 80px;
+}
+.espace-client .title{
+  margin-bottom: 30px;
+}
+.espace-client .content{
+  margin-left: 20px;
+}
+.espace-client .content-header div{
+    display: flex;
+}
+.espace-client .content-header div{
+    display: flex;
+}
+.espace-client .content-header div img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.espace-client .content-header div h5{
+    margin:  20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.espace-client .content-body{
+  margin-top: 30px;
+}
+.espace-client .content-body .statistiques{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.espace-client .content-body .statistiques div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.espace-client .content-body .statistiques div h5{
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    text-transform: capitalize;
+    text-align: center;
+}
+.espace-client .content-body .statistiques div p{
+    font-size: 18px;
+    font-weight: bold;
+}
+/* end espace client */
+/* espace vendor */
+.espace-vendor{
+  margin: 100px 0;
+  padding: 10px 100px 10px 80px;
+}
+.espace-vendor .content{
+  margin-left: 20px;
+}
+.espace-vendor .title{
+  margin-bottom: 30px;
+}
+.espace-vendor .content-header div{
+    display: flex;
+}
+.espace-vendor .content-header div{
+    display: flex;
+}
+.espace-vendor .content-header div img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+.espace-vendor .content-header div h5{
+    margin:  20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.espace-vendor .content-body{
+  margin-top: 30px;
+}
+.espace-vendor .content-body .statistiques{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.espace-vendor .content-body .statistiques div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.espace-vendor .content-body .statistiques div h5{
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    text-transform: capitalize;
+    text-align: center;
+}
+.espace-vendor .content-body .statistiques div p{
+    font-size: 18px;
+    font-weight: bold;
+}
+.espace-vendor .products{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;  
+}
+.espace-vendor .products .product-card {
+    position: relative;
+    box-shadow: 0 2px 7px #dfdfdf;
+    margin: 30px auto;
+    background: white !important;
+}
+.espace-vendor .products .product-card:hover{
+  width: 400px;
+  transform: scale(1.0);
+}
+
+.espace-vendor .products .product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    width: 200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    position: relative;
+}
+
+.espace-vendor .products .product-tumb img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.espace-vendor .products .product-details {
+    padding: 30px;
+}
+
+.espace-vendor .products .product-catagory {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 18px;
+}
+
+.espace-vendor .products .product-details h4 a {
+  font-size: 20px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+    color: #363636;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.espace-vendor .products .product-details h4 a:hover {
+    color: #fbb72c;
+}
+
+.espace-vendor .products .product-details p {
+    font-size: 15px;
+    line-height: 22px;
+    margin-bottom: 18px;
+    color: #999;
+}
+
+.espace-vendor .products .product-bottom-details {
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.espace-vendor .products .product-bottom-details div {
+    float: left;
+    width: 50%;
+}
+
+.espace-vendor .products .product-price {
+    font-size: 18px;
+    color: #fbb72c;
+    font-weight: 600;
+}
+
+.espace-vendor .products .product-links {
+    text-align: right;
+}
+
+.espace-vendor .products .product-links a {
+    display: inline-block;
+    margin-left: 5px;
+    color: orange !important;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.espace-vendor .products .product-links a:hover {
+    color: orange;
+}
+.espace-vendor .add-product{
+  display: flex;
+  justify-content: right;
+}
+/* end espace vendor */

@@ -1,0 +1,81 @@
+GET  http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJuYW1lIjoiZmF0YWgiLCJlbWFpbCI6ImZhdGFoYmVsaGFtZWwzQGdtYWlsLmNvbSIsImlhdCI6MTY1MzE4MjQwMSwiZXhwIjoxNjUzMTgyNDE2fQ.sfLi1x80nDwQ3Oh34M1nyFJbqcxkPl9IRGEiMAcpyaU
+
+
+
+
+
+###
+POST  http://localhost:5000/admin/login
+Content-Type: application/json
+
+{
+    "email":"fatahadmin1@gmail.com",
+    "password":"12345"
+}
+
+###
+
+
+POST  http://localhost:5000/category/create
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzMjYwNTUzLCJleHAiOjE2NTMyNjQxNTN9.xVhDw0mJtj4_lkDNlgRqnWVo4KNsJg2D1W207IsbSFE
+Content-Type: application/json
+
+{
+    "category_name":"téléphone"
+}
+
+###
+GET http://localhost:5000/category
+
+
+###
+
+
+POST  http://localhost:5000/vendor/create-product
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzMzExNjM3LCJleHAiOjE2NTMzMTUyMzd9.CEpub9D2ecwyIb6Uu1D3saaXGhB4VbL_taj3OBqCFmc
+Content-Type: application/json
+
+{
+    "name":"iPhon 11 ",
+    "description":"c'est un parmi des meilleure phone dans le monde .....",
+    "price":"500$",
+    "category":"téléphone",
+    "brand":"apple",
+    "vendor":"06 mobile",
+    "image":"/images/iphone.jpg"
+}
+
+###
+GET http://localhost:5000/product
+
+####
+
+POST  http://localhost:5000/vendor/register
+Content-Type: application/json
+
+{
+    "nom":"belhamel",
+    "prenom":"fatah",
+    "email":"fatahbelhamel32@gmail.com",
+    "password":"123456",
+    "confpassword":"123456",
+    "nom_boutique":"fatah phone",
+    "adress":"algerie boumerdes",
+    "numero":"0553686024"
+}
+
+###
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email":"fatahbelhamel32@gmail.com",
+    "password":"123456"
+}
+
+###
+GET  http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImlhdCI6MTY1MzM5OTM4MCwiZXhwIjoxNjUzNDAyOTgwfQ.YiH3vyRGbbC6XBk2dzGnUG7tAFjAU2BTYe0OVDy2SHo
+
+
