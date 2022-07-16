@@ -63,7 +63,7 @@ export const getProductByVendor = async(req,res) =>{
     try{
         const product = await Product.findAll({
             where :{
-                vendeur_id : req.params.vendor
+                vendeur_id : req.params.id
             }
         });
         res.status(200).json({
@@ -97,7 +97,54 @@ export const getProductByMarque = async(req,res) =>{
             }
         });
         res.status(200).json({
-                message: product
+                product
+        });
+    }catch(error){
+        res.status(400).json({ message : error});
+    }    
+} 
+
+export const updateProduct = async(req,res) =>{
+    const { nom_produit,description,categorie,marque,prix,image } = req.body;
+    try{
+        const product = await Product.findOne({
+            where :{
+                id : req.params.id
+            }
+        });
+        if(product){
+            await Product.update({
+                nom_produit : nom_produit,
+                description : description,
+                categorie : categorie,
+                marque : marque,
+                prix : prix,
+                image : image
+            },{
+                where :{
+                    id : req.params.id
+                }
+            });
+            res.status(200).json({
+                    message:"le produit est modifié"
+            });
+        }
+        
+    }catch(error){
+        res.status(400).json({ message : error});
+    }    
+} 
+
+
+export const deleteProduct = async(req,res) =>{
+    try{
+        const product = await Product.destroy({
+            where :{
+                id : req.params.id
+            }
+        });
+        res.status(200).json({
+                message:"le produit est supprimé"
         });
     }catch(error){
         res.status(400).json({ message : error});

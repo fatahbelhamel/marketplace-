@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Product(props){
 	return(
-             <div class="product-card" style={{width:"250px",background:"white !important"}}>
+               <div class="product-card" style={{width:"250px",background:"white !important"}}>
                   <div class="product-tumb">
                     <img src={props.image} alt=""/>
                   </div>

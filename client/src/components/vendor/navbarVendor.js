@@ -18,7 +18,7 @@ function NavbarVendor(){
       const response = await axios.get("http://localhost:5000/vendor/token");
         setToken(response.data.token);
         const decode = jwt_decode(response.data.token);
-        console.log(decode);
+        //console.log(decode);
         setName(decode.name);
         setExpire(decode.exp);
      }catch (error) {

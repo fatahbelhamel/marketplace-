@@ -21,6 +21,7 @@ import CompteVendor from './components/vendor/compteVendor.js';
 import CommandeVendor from './components/vendor/commandeVendor.js';
 import ProductVendor from './components/vendor/productVendor.js';
 import AddProduct from './components/vendor/addProduct.js';
+import UpdateProduct from './components/vendor/updateProduct.js';
 
 function App() {
   return (
@@ -95,6 +96,11 @@ function App() {
         <Route path="/vendor/adProduct">
          <NavbarVendor/>
          <AddProduct/>
+         <Footer/>
+        </Route>
+        <Route path="/vendor/updateProduct/:id">
+         <NavbarVendor/>
+         <UpdateProduct/>
          <Footer/>
         </Route>
         <Route path="/vender-en-DzMarket">

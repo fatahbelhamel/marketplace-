@@ -53,7 +53,12 @@ app.use(cookieParser());
 //database connection
 try{
    db.authenticate().then(()=>console.log("connection has been established"));
+   //await Client.sync();
+   //await Admin.sync();
+   //await Vendor.sync();
+   //await Category.sync();
    //await Product.sync();
+   //await Cart.sync();
 }catch(err){
    console.log(err);
 }
