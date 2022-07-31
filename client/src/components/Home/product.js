@@ -1,4 +1,10 @@
-function Products(props){
+
+function Products(){
+ 
+  
+
+
+
 	return(
   <>
         <div class="product">

@@ -5,7 +5,7 @@ import Categories from "./Home/categorie.js";
 import Banner from "./Home/banner.js";
 import Offres from "./Home/offre.js";
 import Articles from "./Home/article.js";
-import Data from "./data.js";
+
 function Home() {
 
 	return(

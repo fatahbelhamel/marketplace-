@@ -71,7 +71,7 @@ export const login = async (req,res)=>{
 		const hashPassword = md5(req.body.password);
 		if(!(hashPassword == client.password)) return res.status(401).json({message:"mot de pass incorrect"});
 
-		const token = jwt.sign({id : client.id}, process.env.JWT_TOKEN,{expiresIn: "15s"});
+		const token = jwt.sign({id : client.id}, process.env.JWT_TOKEN,{expiresIn: "1h"});
 		const { nom,prenom,email,password } = client;
         
        
@@ -82,7 +82,7 @@ export const login = async (req,res)=>{
 		});
         
 		res.status(202).cookie("token",token,{ 
-        	expires  : new Date(Date.now() + 9),
+        	expires  : new Date(Date.now() + 1000),
         	sameSite : 'strict',
             httpOnly : true,
             secure : false,
@@ -105,20 +105,24 @@ export const login = async (req,res)=>{
 
 
 export const logout = async (req,res)=>{
-	const refreshToken = req.cookies.token;
-    if(!refreshToken) return res.sendStatus(204);
-    const client = await Client.findOne({
-        where : {
-            refresh_token : refreshToken
-        }
-    });
-    if(!client) return res.sendStatus(204);
-	const clientId = client.id;
-	Client.update({refresh_token: null},{
-		where : {
-			id : clientId
-		}
-	});
-    res.clearCookie('');	
-    return res.sendStatus(200);
+	try{
+		const refreshToken = req.cookies.token;
+	    if(!refreshToken) return res.sendStatus(204);
+	    const client = await Client.findOne({
+	        where : {
+	            refresh_token : refreshToken
+	        }
+	    });
+	    if(!client) return res.sendStatus(204);
+		const clientId = client.id;
+		Client.update({refresh_token: null},{
+			where : {
+				id : clientId
+			}
+		});
+	    res.clearCookie('token');
+	    return res.sendStatus(200);
+	}catch(error){
+		res.json({error})
+	}
 }

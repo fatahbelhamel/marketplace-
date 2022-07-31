@@ -2,16 +2,17 @@ import Category from "../models/categoryModel.js";
 
 
 export const createCategory = async(req,res) =>{
-    const { category_name } = req.body;
+    const { name, image } = req.body;
     try{
-        const category = await Category.findOne({
+        const categorie = await Category.findOne({
             where : {
-                category_name : req.body.category_name
+                name : req.body.name
             }
         });
-        if(category) return res.status(400).json({ message : "categorie exist deja"});
+        if(categorie) return res.status(400).json({ message : "categorie exist deja"});
         await Category.create({
-            category_name : category_name
+            name : name,
+            image : image
         });
         res.status(200).json({
             message:"categorie est bien créer"
@@ -26,7 +27,7 @@ export const getCategory = async(req,res) =>{
         const categories = await Category.findAll();
         if(categories) {
             res.status(200).json({
-                message: categories
+                categories
             });
         }else{
             res.status(400).json({

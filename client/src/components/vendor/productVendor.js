@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Sidbare from "./sidbare";
 import axios from 'axios';
 import cookie from "cookie";
@@ -11,6 +11,7 @@ function ProductVendor(){
 
   const [products, setProducts] = useState("");
   const [id, setId] = useState("");
+  const history = useHistory();
 
 
 const getVendorId = async (req,res)=>{
@@ -22,12 +23,14 @@ const getVendorId = async (req,res)=>{
         console.error(error);
      }
 }
+useEffect(()=>{
+   getVendorId();
+},[id]);
 
-getVendorId();
 
 const getProducts = async ()=>{
   try{
-    console.log(`http://localhost:5000/vendor/product/vendor/${id}`);
+    console.log(id);
     const response = await axios.get(`http://localhost:5000/vendor/product/vendor/${id}`);
     setProducts(response.data.product);
     console.log(products);
@@ -38,18 +41,20 @@ const getProducts = async ()=>{
 }
 
 getProducts();
-/*
-const deleteProduct = async (id)=>{
-  try{
- 
-    await axios.delete(`http://localhost:5000/vendor/product/${id}`);
 
+const deleteProduct = async (e, id)=>{
+  e.preventDefault();
+  try{
+    console.log(`http://localhost:5000/product/${id}`);
+    await axios.delete(`http://localhost:5000/product/${id}`);
+    history.push("/vendor/productVendor");
   }catch(error){
     console.log(error);
   }
 }
-*/
-const path =`/vendor/updateProduct/`;
+
+const imagePath = "/images/";
+const path ="/vendor/updateProduct/";
 
 	return(
          <div class="espace-vendor">
@@ -61,13 +66,13 @@ const path =`/vendor/updateProduct/`;
 			        <h3 class="title">Les produits</h3>
               <div class="products">
 
-               {
+               {products ?
               
                 Object.values(products).map((product, index)=>{
                   return (
                       <div class="product-card" style={{width:"250px",background:"white !important"}} key={index}>
                         <div class="product-tumb">
-                          <img src={product.image} alt=""/>
+                          <img src={imagePath + product.image} alt=""/>
                         </div>
                         <div class="product-details">
                           <span class="product-catagory">{product.categorie}</span>
@@ -77,13 +82,14 @@ const path =`/vendor/updateProduct/`;
                             <div class="product-price">${product.prix}</div>
                             <div class="product-links">
                               <Link to={path + product.id}><i class="fa-solid fa-pen-to-square"></i></Link>
-                              <Link to=""><i class="fa-solid fa-trash" ></i></Link>
+                              <Link to="#" onSubmit={deleteProduct(product.id)}><i class="fa-solid fa-trash"></i></Link>
                             </div>
                           </div>
                         </div>
+
                       </div> 
                     )
-                })
+                }) : "........"
 
 
                }

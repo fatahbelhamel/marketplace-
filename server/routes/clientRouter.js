@@ -8,7 +8,7 @@ const router = express.Router();
 router.route('/client/clients').get(verifyclientToken,getclients);
 router.route('/client/login').post(validateLogin, login);
 router.route('/client/register').post(validateRegister, isRequestValidated, register);
-router.route('/client/logout').delete(logout);
+router.route('/client/logout').post(verifyclientToken, logout);
 router.route('/client/token').get(refreshTokenClient);
 
 

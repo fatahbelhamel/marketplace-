@@ -22,19 +22,21 @@ function Navbar(){
         console.error(error);
      }
   }
-      
+    
    refreshToken();
     
   const Logout = async () =>{
      try {
-       await axios.delete("http://localhost:5000/client/logout");
-       //history.push("/client/login");
+       await axios.post("http://localhost:5000/client/logout");
+       history.push("/client/login");
      }catch (error) {
         console.error(error);
      }
   }
-
-   Logout();
+     useEffect(()=>{
+        Logout();
+     },[]);
+       
 
 
   return(
@@ -55,16 +57,16 @@ function Navbar(){
                        <li class="user">
                         <Link to=""><br/>
                         <img class="icone" src="/images/user-profile-pngrepo-com.png"/> 
-                        {name ? name : "S'identifier"}
+                        {token ? name : "S'identifier"}
                         </Link>
                             <ul class="menu">
                                <li><Link to="/client/login"><button class="btn btn-sm">Se connecter</button></Link></li>
                                <li><Link to="" class="divider"></Link></li>
-                               <li><Link to="/client/espaceClient">Mon compte</Link></li>
+                               <li><Link to={token ? "/client/espaceClient" : "/client/login"}>Mon compte</Link></li>
                                <li><Link to="">Mes commandes</Link></li>
                                <li><Link to="">Ma list d'envie</Link></li>
                                {
-                                name ? <li><Link onClick={Logout}>Déconnecter</Link></li> : ""
+                                token ? <li><Link onClick={Logout}>Déconnecter</Link></li> : ""
                                 }
                                
                             </ul>

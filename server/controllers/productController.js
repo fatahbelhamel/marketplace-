@@ -1,34 +1,50 @@
 import Product from "../models/productModel.js";
 import cookie from "cookie";
 import jwt_decode from "jwt-decode";
+import multer from "multer";
+import fs from "fs";
+
+
 
 export const createProduct = async(req,res) =>{
-    const { nom_produit,description,categorie,marque,prix,image } = req.body;
+    console.log(req.body);
+     console.log(req.file);
+    
+    
+    const { nom_produit,description,categorie,marque,prix,quantity } = req.body;
+    
     try{
         const product = await Product.findOne({
             where : {
-                nom_produit : req.body.nom_produit
+                nom_produit : nom_produit
             }
         });
         if(product) return res.status(400).json({ message : "ce produit exist deja"});
         const token = cookie.parse(req.headers.cookie).token;
         const vendor_id = jwt_decode(token).id;
-        console.log(vendor_id);
+
+        const imageFile = req.file.filename;
+
         await Product.create({
             nom_produit : nom_produit,
             description : description,
             categorie : categorie,
             marque : marque,
             prix : prix,
-            image : image,
+            quantités : quantity,
+            image : imageFile,
             vendeur_id : vendor_id
         });
         res.status(200).json({
             message:"produit est bien créer"
         });
     }catch(error){
-        res.status(400).json({ message : error});
-    }    
+        res.status(402).json({ message : error});
+        console.log(error);
+    }  
+
+
+    
 } 
 
 export const getProducts = async(req,res) =>{
@@ -150,3 +166,19 @@ export const deleteProduct = async(req,res) =>{
         res.status(400).json({ message : error});
     }    
 } 
+
+
+export const productCountByVendor = async(req,res) =>{
+    try{
+        const count = await Product.count({
+            where :{
+                vendeur_id : req.params.id
+            }
+        });
+        res.status(200).json({
+                count
+        });
+    }catch(error){
+        res.status(400).json({ message : error});
+    }  
+}

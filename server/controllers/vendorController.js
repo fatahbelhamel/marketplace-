@@ -116,12 +116,12 @@ export const logout = async (req,res)=>{
 	    });
 	    if(!vendor) return res.sendStatus(204);
 		const vendorId = vendor.id;
-		/*Vendor.update({refresh_token: null},{
+		Vendor.update({refresh_token: null},{
 			where : {
 				id : vendorId
 			}
 		});
-	    res.clearCookie('refreshToken');*/	
+	    res.clearCookie('token');
 	    return res.sendStatus(200);
 	}catch(error){
 		res.json({error})

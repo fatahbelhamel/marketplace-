@@ -1,6 +1,40 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import Sidbare from "./sidbare";
 
 function EspaceVendor(){
+
+
+   const [count, setCount] = useState("");
+   const [id, setId] = useState("");
+
+   const getVendorId = async (req,res)=>{
+      try {
+         const response = await axios.get("http://localhost:5000/vendor/token");
+         const decode = jwt_decode(response.data.token);
+            setId(decode.vendorId);
+         }catch (error) {
+            console.error(error);
+         }
+   }
+
+   useEffect(()=>{
+      getVendorId();
+   },[id])
+   
+   const getProductCount = async(req,res)=>{
+      try{
+         const response = await axios.get(`http://localhost:5000/vendor/productCount/vendor/${id}`);
+         setCount(response.data.count);
+         console.log(count);
+      }catch(error){
+         console.log(error);
+      }
+   }
+
+   getProductCount();
+
 	return(
             <div class="espace-vendor">
           <div class="row">
@@ -24,7 +58,7 @@ function EspaceVendor(){
                        </div>
                        <div class="">
                           <h5>produits</h5>
-                          <p>5</p>
+                          <p>{count}</p>
                        </div>
                        <div class="">
                           <h5>commandes</h5>

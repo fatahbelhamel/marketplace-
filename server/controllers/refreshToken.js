@@ -43,7 +43,8 @@ export const refreshTokenVendor = async (req,res)=>{
         const vendorId = vendor.id;
         const name = vendor.prenom;
         const email = vendor.email;
-        const token = jwt.sign({vendorId, name, email}, process.env.JWT_TOKEN,{expiresIn: '1h'});
+        const nom_boutique = vendor.nom_boutique;
+        const token = jwt.sign({vendorId, name, email,nom_boutique}, process.env.JWT_TOKEN,{expiresIn: '1h'});
         res.json({ token });
     });
  } catch (error) {

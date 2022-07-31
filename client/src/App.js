@@ -11,7 +11,6 @@ import VendorLogin from './components/vendor/login.js';
 import VendorRegister from './components/vendor/register.js';
 import Cart from './components/cart.js';
 import Vendor from './components/vendor/vendor.js';
-import Dashboard from "./components/dashboard.js";
 import AdminLogin from './components/admin/adminLogin.js';
 import EspaceClient from './components/client/espaceClient.js';
 import EspaceVendor from './components/vendor/espaceVendor.js';
@@ -23,6 +22,13 @@ import ProductVendor from './components/vendor/productVendor.js';
 import AddProduct from './components/vendor/addProduct.js';
 import UpdateProduct from './components/vendor/updateProduct.js';
 
+import Dashboard from "./components/admin/dashboard.js";
+import Commandes from "./components/admin/commandes.js";
+import Products from "./components/admin/products.js";
+import Categories from "./components/admin/categories.js";
+import Clients from "./components/admin/clients.js";
+import Vendeurs from "./components/admin/vendeurs.js";
+
 function App() {
   return (
     <Router>
@@ -33,7 +39,7 @@ function App() {
          <Home/>
          <Footer/>
         </Route>
-        <Route path="/product">
+        <Route path="/product/:id">
          <Navbar/>
          <Product/>
          <Footer/>
@@ -113,10 +119,25 @@ function App() {
          <Cart/>
          <Footer/>
         </Route>
-        <Route path="/dashboard">
+        <Route path="/admin/dashboard">
          <Dashboard/>
         </Route>
-        <Route path="/adminlogin">
+        <Route path="/admin/products">
+         <Products/>
+        </Route>
+        <Route path="/admin/categories">
+         <Categories/>
+        </Route>
+        <Route path="/admin/commandes">
+         <Commandes/>
+        </Route>
+        <Route path="/admin/clients">
+         <Clients/>
+        </Route>
+        <Route path="/admin/vendeurs">
+         <Vendeurs/>
+        </Route>
+        <Route path="/admin/login">
          <AdminLogin/>
         </Route>
        </Switch>

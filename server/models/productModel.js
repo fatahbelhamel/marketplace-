@@ -30,6 +30,10 @@ const Product = db.define('products',{
         type :Sequelize.STRING(50),
     	allowNull :false
     },
+    quantités:{
+        type :Sequelize.INTEGER,
+        allowNull :false
+    },
     status:{
         type :Sequelize.STRING(50)
     },

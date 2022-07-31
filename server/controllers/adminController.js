@@ -12,6 +12,7 @@ export const login = async (req,res)=>{
 			});
 		
 		const hashPassword = md5(req.body.password);
+		//console.log(md5(req.body.password));
 		if(!(hashPassword == admin.password)) return res.status(401).json({message:"mot de pass incorrect"});
 
 		const token = jwt.sign({id : admin.id}, process.env.JWT_TOKEN,{expiresIn: "1h"});

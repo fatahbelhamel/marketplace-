@@ -13,6 +13,8 @@ function NavbarVendor(){
   const history = useHistory();
  
 
+  
+
   const refreshToken = async () =>{
      try {
       const response = await axios.get("http://localhost:5000/vendor/token");
@@ -20,24 +22,35 @@ function NavbarVendor(){
         const decode = jwt_decode(response.data.token);
         //console.log(decode);
         setName(decode.name);
-        setExpire(decode.exp);
+        //setExpire(decode.exp);
      }catch (error) {
         console.error(error);
      }
   }
-      
-  refreshToken();   
    
-    
+
+  
+  refreshToken();
+  //useEffect(()=>{
+     
+  //},[]);
+     
+   
   const Logout = async () =>{
      try {
-        await axios.delete("http://localhost:5000/vendor/logout");
+        await axios.post("http://localhost:5000/vendor/logout");
+        history.push("/vendor/login");
      }catch (error) {
         console.error(error);
      }
   }
 
-   Logout();
+  
+  useEffect(()=>{
+    Logout();
+  },[]);
+ 
+   
 
 
   return(
@@ -67,7 +80,7 @@ function NavbarVendor(){
                                <li><Link to="">Mes commandes</Link></li>
                                <li><Link to="">Ma list d'envie</Link></li>
                                {
-                                name ? <li><Link onSubmit={Logout}>Déconnecter</Link></li> : ""
+                                token ? <li><Link onClick={Logout}>Déconnecter</Link></li> : ""
                                 }
                                
                             </ul>

@@ -24,6 +24,18 @@ function Sidbare (){
                 </Link>
             </li>
             <li class="nav-item">
+                <Link class="nav-link" to="/vendor/productVendor">
+                <span data-feather="shopping-cart"></span>
+                Ajouter un produit
+                </Link>
+            </li>
+            <li class="nav-item">
+                <Link class="nav-link" to="/vendor/productVendor">
+                <span data-feather="shopping-cart"></span>
+                Les offres
+                </Link>
+            </li>
+            <li class="nav-item">
                 <Link class="nav-link" to="#">
                 <span data-feather="users"></span>
                 Les clients

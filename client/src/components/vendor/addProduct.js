@@ -14,33 +14,46 @@ axios.defaults.withCredentials = true;
 
 function AddProduct(){
 
-
-    const [nom, setNom] = useState('');
     const [nom_produit, setNom_produit] = useState('');
     const [description,setDescription] = useState('');
     const [categorie, setCategorie] = useState('');
     const [marque, setMarque] = useState('');
     const [prix, setPrix] = useState('');
     const [image, setImage] = useState('');
+    const [quantités, setQuantités] = useState('');
     const [message, setMessage] = useState('');
     const history = useHistory();
+    
 
+	const fileOnChange = (e)=>{
+		setImage(e.target.files[0]);
+		
+	}
+
+	console.log(image);
+	console.log(quantités);
 
     const addProduct = async (e)=>{
         e.preventDefault();
+        
         try{
-          await axios.post("http://localhost:5000/vendor/create-product",{
-          	nom_produit : nom_produit,
-            description : description,
-            categorie : categorie,
-            marque : marque,
-            prix : prix,
-            image : image,
-          });
-          history.push("/vendor/productVendor");
+
+          const form = new FormData();
+          form.append('nom_produit', nom_produit);
+          form.append('description', description);
+          form.append('categorie', categorie);
+          form.append('marque', marque);
+          form.append('prix', prix);
+          form.append('image', image);
+          form.append('quantity', quantités);
+          
+
+        await axios.post("http://localhost:5000/vendor/create-product", form);
+        history.push("/vendor/productVendor");
+
         } catch(error){
           if(error.response){
-          	setMessage(error.response.data.message);
+          	//setMessage(error.response.data.message);
           }
           console.log(error);
         }
@@ -132,11 +145,21 @@ function AddProduct(){
 			              onChange={(e)=>setPrix(e.target.value)}
 			            />
 	              </Grid>
+				  <Grid item xs={12}>
+	                <TextField
+			              margin="normal"
+			              required
+			              fullWidth
+			              name="quantités"
+			              label="Quantités"
+			              type="quantités"
+			              id="quantités"
+			              value={quantités}
+			              onChange={(e)=>setQuantités(e.target.value)}
+			            />
+	              </Grid>
 	              <Grid item xs={12}>
-	                <Input accept="image/*" id="contained-button-file" multiple type="file" value={image} onChange={(e)=>setImage(e.target.value)} />
-							  <Button variant="contained" component="span">
-							    image
-							  </Button>
+	                <Input type="file" name="image" onChange={fileOnChange} />
 							  </Grid>
 	              <Grid item xs={12}>
 	                <button type="submit" class="btn btn-dark">Ajouter</button>

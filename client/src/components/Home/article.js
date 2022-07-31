@@ -12,7 +12,7 @@ import 'swiper/css/scrollbar';
 function Articles(props){
 	return(
   <>
-    <h4 class="title">Nouvel Arrivage</h4>
+    <h4 class="title">Les Produits</h4>
     <div class="articles">
       <Swiper
           // install Swiper modules

@@ -25,7 +25,7 @@ function AdminLogin(){
           	email : email,
           	password : password
           });
-		  history.push("/dashboard");
+		  history.push("/admin/dashboard");
         } catch(error){
           if(error.response){
 			setMessage(error.response.data.message);
@@ -35,53 +35,54 @@ function AdminLogin(){
 
 
 	return(
-      <div class="compte-vendor container"> 	
-			  <div class="box">
-        		<h2>DzMarket</h2>
-					 
-				 <div class="alert alert-danger">{message}</div>
-        		
-        		<form onSubmit={adminLogin}>
-        			<TextField
-		              margin="normal"
-		              required
-		              fullWidth
-		              id="email"
-		              label="Address Email"
-		              name="email"
-		              autoComplete="email"
-		              autoFocus
-		              value={email}
-		              onChange={(e)=>setEmail(e.target.value)}
-		            />
-		            <TextField
-		              margin="normal"
-		              required
-		              fullWidth
-		              name="password"
-		              label="Mot de pass"
-		              type="password"
-		              id="password"
-		              autoComplete="current-password"
-		              value={password}
-		              onChange={(e)=>setPassword(e.target.value)}
-		            />
-		            <FormControlLabel
-		              control={<Checkbox value="remember" color="primary" />}
-		              label="Souviens-toi de moi"
-		            />
-		            <Button
-		              type="submit"
-		              fullWidth
-		              variant="contained"
-		              sx={{ mt: 3, mb: 2 }}
-		            >
-		              Login
-		            </Button>
-		            
-        		</form>
-        	</div>
-		</div>
+      <div class="container connection" style={{width:'500px' ,margin:'100px auto'}} >
+     		<div class="login">
+     			<h5 class="title">Se connecter</h5>
+     			 <div class="login-form">
+	     			 { message }
+					
+	        		<form onSubmit={adminLogin}>
+	        			<TextField
+			              margin="normal"
+			             // required
+			              fullWidth
+			              id="email"
+			              label="Address Email"
+			              name="email"
+			              autoComplete="email"
+			              autoFocus
+			              value={email}
+			              onChange={(e)=>setEmail(e.target.value)}
+			            />
+			            <TextField
+			              margin="normal"
+			             // required
+			              fullWidth
+			              name="password"
+			              label="Mot de pass"
+			              type="password"
+			              id="password"
+			              autoComplete="current-password"
+			              value={password}
+			              onChange={(e)=>setPassword(e.target.value)}
+			            />
+			            <Grid container>
+			              <Grid item xs>
+			                <Link href="#" variant="body2">
+							           Mot de passe oublié?
+			                </Link>
+			              </Grid>
+			              <Grid item>
+			                <Link href="#" variant="body2">
+			                </Link>
+			              </Grid>
+			            </Grid>
+			            <button class="btn btn-dark">se connecter</button>
+	        		</form>
+	        	</div>
+     		</div>
+   
+     </div>
 
 		)
 }
