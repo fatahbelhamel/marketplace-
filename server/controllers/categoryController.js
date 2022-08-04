@@ -2,23 +2,27 @@ import Category from "../models/categoryModel.js";
 
 
 export const createCategory = async(req,res) =>{
-    const { name, image } = req.body;
+    console.log(req.body);
+    console.log(req.file);
+    const { nom_categorie } = req.body;
     try{
         const categorie = await Category.findOne({
             where : {
-                name : req.body.name
+                nom_categorie : req.body.nom_categorie
             }
         });
         if(categorie) return res.status(400).json({ message : "categorie exist deja"});
+        const imageFile = req.file.filename;
         await Category.create({
-            name : name,
-            image : image
+            nom_categorie : nom_categorie,
+            image : imageFile
         });
         res.status(200).json({
             message:"categorie est bien créer"
         });
     }catch(error){
         res.status(400).json({ message : error});
+        console.log(error);
     }    
 } 
 
@@ -36,5 +40,6 @@ export const getCategory = async(req,res) =>{
         }
     }catch(error){
         res.status(400).json({ message : error});
+        console.log(error);
     }    
 } 

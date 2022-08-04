@@ -10,17 +10,29 @@ function Product(){
    const [product, setProduct] = useState(""); 
    const [nom_boutique, setNom_boutique] = useState("");
    const { id } = useParams();
+   const history = useHistory();
    
 
    const getProductById = async()=>{
       const response = await axios.get(`http://localhost:5000/product/${id}`);
       setProduct(response.data.product);
-      console.log(response.data.product);
+      //console.log(response.data.product);
    }
 
    getProductById();
 
-   
+   const addToCart = async()=>{
+      try{
+         console.log(id);
+         await axios.post(`http://localhost:5000/cart/add_product/${id}`);
+         //history.push('/cart');
+      }catch(error){
+         console.log(error);
+      }
+      
+   }
+
+   addToCart();
 
    const imagePath = "/images/";
 
@@ -61,7 +73,7 @@ function Product(){
                         <div class="quantite">
                            <span>-</span><span class="number">1</span><span>+</span>
                         </div>
-                        <button class="btn btn-dark">Ajouter au Panier</button>
+                        <button class="btn btn-dark" onClick={addToCart}>Ajouter au Panier</button>
                      </div>
                      <div class="product-category">
                         <h5>Categorie: <span>{product.categorie}</span></h5>

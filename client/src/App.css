@@ -1556,6 +1556,35 @@ a
 .categoriesContainer{
 	flex: 6;
 }
+.categories .titl{
+	font-size: 16px;
+	font-weight: 500;
+	margin: 20px;
+}
+.categories .table{
+    padding: 20px;
+}
+.categories .table .categorie_img{
+	width: 50px;
+	height: 50px;
+}
+.categories .table .btns{
+	display: flex;
+	justify-content: center;
+	color: orange;
+}
+.categories .table .btn-update,.categories .table .btn-delete{
+    cursor: pointer;
+    margin-right: 10px;
+}
+.categories .add-btn{
+    float: right;
+    margin-right: 20px;
+}
+.categories .add-categorie{
+    padding: 20px;
+    margin-top: 20px;
+}
 .products{
     display: flex;
     width: 100%;

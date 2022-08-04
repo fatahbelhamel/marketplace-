@@ -53,7 +53,7 @@ function AddProduct(){
 
         } catch(error){
           if(error.response){
-          	//setMessage(error.response.data.message);
+          	setMessage(error.response.data.message);
           }
           console.log(error);
         }
@@ -119,6 +119,11 @@ function AddProduct(){
 		                  onChange={(e)=>setCategorie(e.target.value)}
 	                />
 	              </Grid>
+	              <select>
+                  <option>a</option>
+                  <option>b</option>
+                  <option>c</option>
+	              </select>
 	              <Grid item xs={12}>
 	                <TextField
 			              margin="normal"

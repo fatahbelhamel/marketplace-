@@ -11,7 +11,6 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 axios.defaults.withCredentials = true;
 
-//import { login } from "../actions/auth.actions.js";
 
 function Register(){
 

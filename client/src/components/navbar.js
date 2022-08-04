@@ -33,11 +33,26 @@ function Navbar(){
         console.error(error);
      }
   }
-     useEffect(()=>{
+    /* useEffect(()=>{
         Logout();
-     },[]);
+     },[]);*/
        
+    const [categories, setCategories] = useState('');
+    const [message, setMessage] = useState('');
 
+      const getCategories = async()=>{
+        try{
+          const response = await axios.get("http://localhost:5000/category");
+          setCategories(response.data.categories);
+
+        }catch(error){
+          if(error.response){
+
+          }
+        }
+      }
+
+      getCategories();
 
   return(
 
@@ -81,7 +96,7 @@ function Navbar(){
                          </Link>
                         </li>
                        <li>
-                          <Link to="cart"><br/>
+                          <Link to="/cart"><br/>
                               <img class="icone" src="/images/shopping-cart-pngrepo-com.png"/>
                               <span class="badge">
                                 0
@@ -99,52 +114,14 @@ function Navbar(){
            <div class="items">
                <ul class="items-menu">
                    <li><i class="fa-solid fa-bars"></i><Link to="" class="categorie">Tout les départements</Link>
-                        <ul class="menu">
-                           <li><Link to="">Electronique</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                </ul>
+                      
+                        <ul class="menu" >
+                        {Object.values(categories).map((categorie, index) => (
+                           <li key={index}><Link to="">{categorie.nom_categorie}</Link>
                            </li>
-                           <li><Link to="">Ordinateur</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                </ul>
-                           </li>
-                           <li><Link to="">Télephone</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Télephone</Link></li>
-                                   <li><Link to="">Télephone</Link></li>
-                                   <li><Link to="">Télephone</Link></li>
-                                </ul></li>
-                           <li><Link to="">Télevision</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Télevision</Link></li>
-                                   <li><Link to="">Télevision</Link></li>
-                                   <li><Link to="">Télevision</Link></li>
-                                </ul></li>
-                           <li><Link to="">Meubles</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                </ul></li>
-                           <li><Link to="">Vêtements</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                </ul></li>
+                         ))}   
                         </ul>
+                      
                    </li>
                </ul>
            </div>

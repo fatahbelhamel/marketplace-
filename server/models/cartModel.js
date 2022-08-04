@@ -2,27 +2,23 @@ import Sequelize from "sequelize";
 import db from "../database/db.js";
 
 const Cart = db.define('carts',{
-    user:{
+    client_id:{
         type :Sequelize.STRING(50),
         allowNull :false
     },
-    product_name:{
+    nom_produit:{
         type :Sequelize.STRING(50),
         allowNull :false
     },
-    product_vendor:{
+    image_produit:{
         type :Sequelize.STRING(50),
         allowNull :false
     },
-    product_image:{
-        type :Sequelize.STRING(50),
-        allowNull :false
-    },
-    price:{
+    quantités:{
         type :Sequelize.INTEGER(10),
         allowNull :false
     },
-    quantity:{
+    prix:{
         type :Sequelize.INTEGER(10),
         allowNull :false
     },

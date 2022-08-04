@@ -18,6 +18,20 @@ export const login = async (req,res)=>{
 		const token = jwt.sign({id : admin.id}, process.env.JWT_TOKEN,{expiresIn: "1h"});
 		const { nom,prenom,email,password } = admin;
 
+		await Admin.update({refresh_token : token},{
+			where :{
+				id:admin.id
+			}
+		});
+        
+		res.status(202).cookie("token",token,{ 
+        	expires  : new Date(Date.now() + 1000),
+        	sameSite : 'strict',
+            httpOnly : true,
+            secure : false,
+            maxAge : 1000*60*60*60 }
+            );
+
 		res.status(200).json({
            token,
 		   admin :{

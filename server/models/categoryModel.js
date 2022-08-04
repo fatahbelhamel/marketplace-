@@ -2,7 +2,7 @@ import Sequelize from "sequelize";
 import db from "../database/db.js";
 
 const Category = db.define('categories',{
-    name:{
+    nom_categorie:{
     	type :Sequelize.STRING(50),
     	allowNull :false
     },

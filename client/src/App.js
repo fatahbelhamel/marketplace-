@@ -26,6 +26,7 @@ import Dashboard from "./components/admin/dashboard.js";
 import Commandes from "./components/admin/commandes.js";
 import Products from "./components/admin/products.js";
 import Categories from "./components/admin/categories.js";
+import Add_categorie from "./components/admin/add_categorie.js";
 import Clients from "./components/admin/clients.js";
 import Vendeurs from "./components/admin/vendeurs.js";
 
@@ -127,6 +128,9 @@ function App() {
         </Route>
         <Route path="/admin/categories">
          <Categories/>
+        </Route>
+        <Route path="/admin/add_categorie">
+         <Add_categorie/>
         </Route>
         <Route path="/admin/commandes">
          <Commandes/>

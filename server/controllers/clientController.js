@@ -71,7 +71,9 @@ export const login = async (req,res)=>{
 		const hashPassword = md5(req.body.password);
 		if(!(hashPassword == client.password)) return res.status(401).json({message:"mot de pass incorrect"});
 
-		const token = jwt.sign({id : client.id}, process.env.JWT_TOKEN,{expiresIn: "1h"});
+		const token = jwt.sign({id : client.id
+
+		}, process.env.JWT_TOKEN,{expiresIn: "1h"});
 		const { nom,prenom,email,password } = client;
         
        

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
 
-export const verifyclientToken = (req, res, next) =>{
+export const verifyClientToken = (req, res, next) =>{
   try{
     const authHeader = req.headers.cookie;
     if(authHeader){

@@ -10,7 +10,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 axios.defaults.withCredentials = true;
 
-//import { login } from "../actions/auth.actions.js";
 
 function Login(){
 
@@ -35,12 +34,6 @@ function Login(){
 			      setMessage(error.response.data.message);
           }
         }
-		/*const client = {
-			email ,
-			password
-		}
-
-		  dispatch(login(client));*/
     }
 
 
