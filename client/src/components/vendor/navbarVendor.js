@@ -18,8 +18,8 @@ function NavbarVendor(){
   const refreshToken = async () =>{
      try {
       const response = await axios.get("http://localhost:5000/vendor/token");
-        setToken(response.data.token);
-        const decode = jwt_decode(response.data.token);
+        setToken(response.data.vendorToken);
+        const decode = jwt_decode(response.data.vendorToken);
         //console.log(decode);
         setName(decode.name);
         //setExpire(decode.exp);
@@ -28,12 +28,9 @@ function NavbarVendor(){
      }
   }
    
-
-  
-  refreshToken();
-  //useEffect(()=>{
-     
-  //},[]);
+ useEffect(()=>{       
+       refreshToken();
+ },[]);  
      
    
   const Logout = async () =>{
@@ -44,13 +41,6 @@ function NavbarVendor(){
         console.error(error);
      }
   }
-
-  
-  useEffect(()=>{
-    Logout();
-  },[]);
- 
-   
 
 
   return(
@@ -113,52 +103,7 @@ function NavbarVendor(){
            <div class="items">
                <ul class="items-menu">
                    <li><i class="fa-solid fa-bars"></i><Link to="" class="categorie">Tout les départements</Link>
-                        <ul class="menu">
-                           <li><Link to="">Electronique</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                   <li><Link to="">Electronique</Link></li>
-                                </ul>
-                           </li>
-                           <li><Link to="">Ordinateur</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                   <li><Link to="">Ordinateur</Link></li>
-                                </ul>
-                           </li>
-                           <li><Link to="">Télephone</Link>
-                                <ul class="sub-menu">
-                                   <li><Link to="">Télephone</Link></li>
-                                   <li><Link to="">Télephone</Link></li>
-                                   <li><Link to="">Télephone</Link></li>
-                                </ul></li>
-                           <li><Link to="">Télevision</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Télevision</Link></li>
-                                   <li><Link to="">Télevision</Link></li>
-                                   <li><Link to="">Télevision</Link></li>
-                                </ul></li>
-                           <li><Link to="">Meubles</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                   <li><Link to="">Meubles</Link></li>
-                                </ul></li>
-                           <li><Link to="">Vêtements</Link> 
-                                <ul class="sub-menu">
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                   <li><Link to="">Vêtements</Link></li>
-                                </ul></li>
-                        </ul>
+                        
                    </li>
                </ul>
            </div>

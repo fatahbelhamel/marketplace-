@@ -8,11 +8,25 @@ function EspaceVendor(){
 
    const [count, setCount] = useState("");
    const [id, setId] = useState("");
+   const [image , setImage]= useState("");
+   const [nom_boutique , setNom_boutique]= useState("");
+
+   const getVendor = async ()=>{
+      try{
+         const response = await axios.get("http://localhost:5000/vendor/getVendor");
+         setImage(response.data.vendor.Img_vend);
+         setNom_boutique(response.data.vendor.Nom_boutique);
+      }catch(error){
+         console.log(error);
+      }
+   }
+
+   getVendor();
 
    const getVendorId = async (req,res)=>{
       try {
          const response = await axios.get("http://localhost:5000/vendor/token");
-         const decode = jwt_decode(response.data.token);
+         const decode = jwt_decode(response.data.vendorToken);
             setId(decode.vendorId);
          }catch (error) {
             console.error(error);
@@ -27,13 +41,15 @@ function EspaceVendor(){
       try{
          const response = await axios.get(`http://localhost:5000/vendor/productCount/vendor/${id}`);
          setCount(response.data.count);
-         console.log(count);
+         //console.log(count);
       }catch(error){
          console.log(error);
       }
    }
 
    getProductCount();
+
+   const imagePath = "/images/";
 
 	return(
             <div class="espace-vendor">
@@ -45,8 +61,8 @@ function EspaceVendor(){
 			   <div class="content">
                  <div class="content-header">
                    <div class="">
-                      <img src="/images/img8.jpg" />
-                      <h5>06 mobile</h5>
+                      <img src={imagePath + image} />
+                      <h5>{nom_boutique}</h5>
                    </div>
                  </div>
                  <hr/>

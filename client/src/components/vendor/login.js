@@ -35,12 +35,6 @@ function Login(){
 			      setMessage(error.response.data.message);
           }
         }
-		/*const user = {
-			email ,
-			password
-		}
-
-		  dispatch(login(user));*/
     }
 
 

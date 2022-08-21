@@ -23,7 +23,7 @@ function Dashboard(){
                    <Chart />
                 </div>
                 <div class="listContainer">
-                    <div class="listTitle">Latest Transaction</div>
+                    <div class="listTitle">Les derniers commandes</div>
                     <Table/>
                 </div>
             </div>

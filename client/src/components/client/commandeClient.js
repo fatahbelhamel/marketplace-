@@ -8,7 +8,9 @@ function CommandeClient(){
 			        <Sidbare/>
             </div>
             <div class="col-9">
-			        <h3>Mes commandes</h3>
+			        <div class="commandes">
+                
+              </div>
 			      </div>
           </div> 
          </div> 

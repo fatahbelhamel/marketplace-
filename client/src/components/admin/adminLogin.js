@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -25,7 +25,7 @@ function AdminLogin(){
           	email : email,
           	password : password
           });
-		  history.push("/admin/dashboard");
+		      history.push("/admin/dashboard");
         } catch(error){
           if(error.response){
 			setMessage(error.response.data.message);

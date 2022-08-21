@@ -23,13 +23,15 @@ function Categories(){
 
   const getCategories = async()=>{
     try{
-      const response = await axios.get("http://localhost:5000/category");
+      const response = await axios.get("http://localhost:5000/admin/categories");
       setCategories(response.data.categories);
+      console.log(response.data);
 
     }catch(error){
       if(error.response){
-
+        console.log(error.response.data);
       }
+      console.log(error);
     }
   }
 
@@ -59,8 +61,8 @@ const imagePath = "/images/";
                           {Object.values(categories).map((categorie, index) => (
                             <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
                               <TableCell align="center">{categorie.id}</TableCell>
-                              <TableCell align="center"><img class="categorie_img" src={imagePath + categorie.image} /></TableCell>
-                              <TableCell align="center">{categorie.nom_categorie}</TableCell>
+                              <TableCell align="center"><img class="categorie_img" src={imagePath + categorie.Img_cat} /></TableCell>
+                              <TableCell align="center">{categorie.Nom_cat}</TableCell>
                               <TableCell align="center">
                                  <div class="btns">
                                    <div class="btn-update">

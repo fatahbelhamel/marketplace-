@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -11,79 +12,83 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-axios.defaults.withCredentials = true;
+
 
 function Offres(props){
 
   const [products, setProducts] = useState("");
+  const history = useHistory();
+  const imagePath = "/images/";
+  const path = "/product/";
 
   const getProducts = async()=>{
-    const response = await axios.get("http://localhost:5000/products");
+    const response = await axios.get("http://localhost:5000/productsByOrder");
     setProducts(response.data.products);
     //console.log(response.data.products);
   }
    
-  getProducts(); 
+  getProducts();
 
-  const getProductById = async()=>{
-    const response = await axios.get("http://localhost:5000/products");
-    setProducts(response.data.products);
-    console.log(response.data.products);
-  }
-   
-  getProductById(); 
 
-  const imagePath = "/images/";
-  const path = "/product/"
+  const addToCart = async(id)=>{
+      try{
+         console.log(id);
+         await axios.post(`http://localhost:5000/cart/add_product/${id}`);
+         history.push('/cart');
+      }catch(error){
+         console.log(error);
+      }
+      
+   }
+
+ 
 	return(
   <>
   <h4 class="title">Nouvel Arrivage</h4>
-	<div class="articles">
-      <Swiper
-          // install Swiper modules
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
-          spaceBetween={20}
-          slidesPerView={4}
-          navigation
-          pagination={{ clickable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
-        >
-          
-          {products ?
+	 <div class="articles">
+     <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={20}
+      slidesPerView={4}
+      navigation
+      pagination={{ clickable: true }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+    >
+      {products ?
               
               Object.values(products).map((product, index)=>{
                 return (
+               
                   <SwiperSlide>
-                    <div class="product-card" style={{width:"300px",background:"white !important"}} key={index}>
+                    <div class="product-card" style={{width:"250px",background:"white !important"}} key={index}>
                       <div class="product-tumb">
-                        <img src={imagePath + product.image} alt=""/>
+                        <img src={imagePath + product.Img_prod} alt=""/>
                       </div>
                       <div class="product-details">
-                        <span class="product-catagory">{product.categorie}</span>
-                        <h4><Link to={path + product.id}>{product.nom_produit}</Link></h4>
-                        <p>{product.description}</p>
+                        <span class="product-catagory">{product.Cat_prod}</span>
+                        <h4><Link to={path + product.id}>{product.Nom_prod}</Link></h4>
+                        
                         <div class="product-bottom-details">
-                          <div class="product-price">{product.prix}$</div>
+                          <div class="product-price">{product.Prix}$</div>
                           <div class="product-links">
-                            <Link to=""><i class="fa-solid fa-pen-to-square"></i></Link>
-                            <Link to="#" ><i class="fa-solid fa-trash"></i></Link>
+                            <Link to=""><FavoriteIcon/></Link>
+                            <Link to="#" onClick={()=>addToCart(product.id)}><ShoppingCartIcon/></Link>
                           </div>
                         </div>
                       </div>
-
+                     
                     </div> 
-                  </SwiperSlide>  
+                  </SwiperSlide> 
+          
+                
                   )
               }) : "........"
 
 
              }
-          
-        </Swiper>
-
+    </Swiper>
     </div>
-    
   </>    
 		)
 }

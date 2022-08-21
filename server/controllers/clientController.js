@@ -1,28 +1,39 @@
 import Client from "../models/clientModel.js";
 import jwt from "jsonwebtoken";
 import md5 from "md5";
+import cookie from "cookie";
+import jwt_decode from "jwt-decode";
 
 
 
-export const getclients = async (req,res)=>{
+
+export const getclientById = async (req,res)=>{
 	try{
-        const clients = await Client.findAll();
-		res.json({clients});
+		const clientToken = cookie.parse(req.headers.cookie).clientToken;
+        const client_id = jwt_decode(clientToken).id;
+
+        const client = await Client.findOne({
+        	where:{
+        		id : client_id
+        	}
+        });
+		res.json({client});
 	}catch(error){
 		console.log(error);
 	}
 }
 
 
-
-
 export const register = async (req,res)=>{
+
+	console.log(req.file);
+	console.log(req.body);
 
 	const { nom,prenom,email,password,confpassword,adress,numero } = req.body;
 
     const client = await Client.findOne({
 		where : {
-			email : req.body.email
+			Email_clt : req.body.email
 		}
 	});
 	if(client){
@@ -36,14 +47,16 @@ export const register = async (req,res)=>{
 		});
 	}else{
 		const hashPassword = md5(password);
+		const imageFile = req.file.filename;
 	    try{
 		    await Client.create({
-				nom : nom,
-				prenom : prenom,
-				email : email,
-				password : hashPassword,
-				adress : adress,
-				numero : numero
+				Nom_clt : nom,
+				Prenom_clt : prenom,
+				Email_clt : email,
+				Mdp_clt : hashPassword,
+				Adress_clt : adress,
+				Num_tel_clt : numero,
+				Img_clt : imageFile
 			});
 		
 			res.status(200).json({
@@ -64,26 +77,24 @@ export const login = async (req,res)=>{
 	try{
 		const client = await Client.findOne({
 				where : {
-					email : req.body.email
+					Email_clt : req.body.email
 				}
 			});
 		
 		const hashPassword = md5(req.body.password);
-		if(!(hashPassword == client.password)) return res.status(401).json({message:"mot de pass incorrect"});
+		if(!(hashPassword == client.Mdp_clt)) return res.status(401).json({message:"mot de pass incorrect"});
 
-		const token = jwt.sign({id : client.id
-
-		}, process.env.JWT_TOKEN,{expiresIn: "1h"});
+		const clientToken = jwt.sign({id : client.id}, process.env.JWT_CLIENT_TOKEN,{expiresIn: "1h"});
 		const { nom,prenom,email,password } = client;
         
        
-		await Client.update({refresh_token:token},{
+		await Client.update({Token_clt:clientToken},{
 			where :{
 				id:client.id
 			}
 		});
         
-		res.status(202).cookie("token",token,{ 
+		res.status(202).cookie("clientToken",clientToken,{ 
         	expires  : new Date(Date.now() + 1000),
         	sameSite : 'strict',
             httpOnly : true,
@@ -92,7 +103,7 @@ export const login = async (req,res)=>{
             );
 		
 		res.status(200).json({
-           token: token,
+           clientToken: clientToken,
 		   client :{
 			nom,prenom,email,password
 		   }
@@ -108,21 +119,21 @@ export const login = async (req,res)=>{
 
 export const logout = async (req,res)=>{
 	try{
-		const refreshToken = req.cookies.token;
+		const refreshToken = req.cookies.clientToken;
 	    if(!refreshToken) return res.sendStatus(204);
 	    const client = await Client.findOne({
 	        where : {
-	            refresh_token : refreshToken
+	            Token_clt : refreshToken
 	        }
 	    });
 	    if(!client) return res.sendStatus(204);
 		const clientId = client.id;
-		Client.update({refresh_token: null},{
+		Client.update({Token_clt: null},{
 			where : {
 				id : clientId
 			}
 		});
-	    res.clearCookie('token');
+	    res.clearCookie('clientToken');
 	    return res.sendStatus(200);
 	}catch(error){
 		res.json({error})

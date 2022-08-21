@@ -11,11 +11,13 @@ import Category from "./models/categoryModel.js";
 import Product from "./models/productModel.js";
 import Vendor from "./models/vendorModel.js";
 import Cart from "./models/cartModel.js";
+import Commande from "./models/commandeModel.js";
 import clientRouter from "./routes/clientRouter.js";
 import adminRouter from "./routes/adminRouter.js";
 import vendorRouter from "./routes/vendorRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
 import cartRouter from "./routes/cartRouter.js";
+import commandeRouter from "./routes/commandeRouter.js";
 
 
 
@@ -60,6 +62,7 @@ try{
    //await Category.sync();
    //await Product.sync();
    //await Cart.sync();
+   //await Commande.sync();
 }catch(err){
    console.log(err);
 }
@@ -72,6 +75,7 @@ app.use(adminRouter);
 app.use(vendorRouter);
 app.use(categoryRouter);
 app.use(cartRouter);
+app.use(commandeRouter);
 
 app.get('/',(req,res)=>{
 	res.send("hello world!!!");

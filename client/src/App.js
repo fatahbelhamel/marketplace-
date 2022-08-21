@@ -1,9 +1,13 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BrowserRouter as Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar.js";
 import NavbarVendor from "./components/vendor/navbarVendor.js";
 import Footer from "./components/footer.js";
 import Product from "./components/product.js";
+import Commande from "./components/commande.js";
+import ProductsByCategory from "./components/products.js";
 import Home from './components/home.js';
 import UserLogin from './components/client/login.js';
 import UserRegister from './components/client/register.js';
@@ -24,6 +28,7 @@ import UpdateProduct from './components/vendor/updateProduct.js';
 
 import Dashboard from "./components/admin/dashboard.js";
 import Commandes from "./components/admin/commandes.js";
+import CommandeItem from "./components/admin/commande.js";
 import Products from "./components/admin/products.js";
 import Categories from "./components/admin/categories.js";
 import Add_categorie from "./components/admin/add_categorie.js";
@@ -31,18 +36,43 @@ import Clients from "./components/admin/clients.js";
 import Vendeurs from "./components/admin/vendeurs.js";
 
 function App() {
+     const [token,setToken]= useState('');
+     const refreshToken = async () =>{
+         try {
+          const response = await axios.get("http://localhost:5000/admin/token");
+            setToken(response.data.adminToken);
+         }catch (error) {
+            console.error(error);
+         }
+      }
+ 
+     useEffect(()=>{       
+           refreshToken();
+     },[]); 
+
   return (
-    <Router>
+    
+    <Routes>
       <div className="App">
-       <Switch>
-        <Route exact path="/">
+       
+        <Route exact path="/" >
          <Navbar/>
          <Home/>
          <Footer/>
         </Route>
-        <Route path="/product/:id">
+        <Route path="/product/:id" >
          <Navbar/>
          <Product/>
+         <Footer/>
+        </Route>
+        <Route path="/commande" >
+         <Navbar/>
+         <Commande/>
+         <Footer/>
+        </Route>
+        <Route path="/products/:categorie">
+         <Navbar/>
+         <ProductsByCategory/>
          <Footer/>
         </Route>
         <Route path="/client/login">
@@ -120,10 +150,20 @@ function App() {
          <Cart/>
          <Footer/>
         </Route>
-        <Route path="/admin/dashboard">
-         <Dashboard/>
+
+        <Route path="/admin/login">       
+            <AdminLogin/>
         </Route>
-        <Route path="/admin/products">
+        <Route path="/admin/dashboard">
+           {token ?
+            <Dashboard/>
+            :
+            <AdminLogin/>
+           }
+         
+        </Route>
+       
+        <Route path="/admin/produits">
          <Products/>
         </Route>
         <Route path="/admin/categories">
@@ -135,20 +175,17 @@ function App() {
         <Route path="/admin/commandes">
          <Commandes/>
         </Route>
+        <Route path="/admin/commande/:id">
+         <CommandeItem/>
+        </Route>
         <Route path="/admin/clients">
          <Clients/>
         </Route>
         <Route path="/admin/vendeurs">
          <Vendeurs/>
-        </Route>
-        <Route path="/admin/login">
-         <AdminLogin/>
-        </Route>
-       </Switch>
-       
-      </div>
-      
-    </Router>  
+        </Route> 
+      </div> 
+    </Routes> 
   );
 }
 

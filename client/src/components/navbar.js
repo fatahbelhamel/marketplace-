@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
@@ -9,50 +9,116 @@ function Navbar(){
 
   const [name ,setName] = useState('');
   const [token ,setToken] = useState('');
+  const [categories, setCategories] = useState('');
+  const [message, setMessage] = useState('');
+  const [id , setId] = useState('');
+  const [count, setCount] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [products, setProducts] = useState('');
+  const [filters, setFilters] = useState('');
+  const [classe, setClasse] = useState('');
   const history = useHistory();
 
-
-  const refreshToken = async () =>{
-     try {
-      const response = await axios.get("http://localhost:5000/client/token");
-        setToken(response.data.token);
-        const decode = jwt_decode(response.data.token);
-        setName(decode.name);
-     }catch (error) {
-        console.error(error);
-     }
-  }
+      const refreshToken = async () =>{
+         try {
+          const response = await axios.get("http://localhost:5000/client/token");
+            setToken(response.data.clientToken);
+            const decode = jwt_decode(response.data.clientToken);
+            setName(decode.name);
+         }catch (error) {
+            console.error(error);
+         }
+      }
+ 
+         useEffect(()=>{       
+               refreshToken();
+         },[]);  
     
-   refreshToken();
-    
-  const Logout = async () =>{
-     try {
-       await axios.post("http://localhost:5000/client/logout");
-       history.push("/client/login");
-     }catch (error) {
-        console.error(error);
-     }
-  }
-    /* useEffect(()=>{
-        Logout();
-     },[]);*/
-       
-    const [categories, setCategories] = useState('');
-    const [message, setMessage] = useState('');
+   
+      const Logout = async () =>{
+         try {
+           await axios.post("http://localhost:5000/client/logout");
+           history.push("/client/login");
+         }catch (error) {
+            console.error(error);
+         }
+      }
+ 
+ 
+        const getClientId = async ()=>{
+          try {
+             const response = await axios.get("http://localhost:5000/client/token");
+             const decode = jwt_decode(response.data.clientToken);
+                setId(decode.clientId);
+             }catch (error) {
+                console.error(error);
+             }
+        }
+   useEffect(()=>{     
+         getClientId();
+   },[]);
 
-      const getCategories = async()=>{
-        try{
-          const response = await axios.get("http://localhost:5000/category");
-          setCategories(response.data.categories);
-
-        }catch(error){
-          if(error.response){
-
+   
+        const getProductInCartCount = async()=>{
+          try{
+             const response = await axios.get(`http://localhost:5000/cart/get_productsCounter/${id}`);
+             setCount(response.data.count);
+             //console.log(response);
+            
+          }catch(error){
+             console.log(error);
           }
         }
-      }
+    //useEffect(()=>{    
+        getProductInCartCount();
+    //},[id]);
 
-      getCategories();
+     
+          const getCategories = async()=>{
+            try{
+              const response = await axios.get("http://localhost:5000/category");
+              setCategories(response.data.categories);
+
+            }catch(error){
+              if(error.response){
+
+              }
+            }
+          }
+     useEffect(()=>{     
+        getCategories();
+     },[]);
+
+/*
+       const getProducts = async()=>{
+        
+        try{
+            const response = await axios.get(`http://localhost:5000/products`);
+            setProducts(response.data.products);
+           // console.log(response.data.products);
+        }catch(error){
+            console.log(error);
+        }
+       }
+      useEffect(()=>{
+            getProducts();
+      },[]);
+  */    
+    useEffect(()=>{
+       const search = async()=>{
+          const response = await axios.get(`http://localhost:5000/products`);
+           setProducts(response.data.products);
+           //console.log(products);
+           setFilters(Object.values(products).filter((item) => item.nom_produit.toLowerCase().includes(searchTerm)));
+       }
+
+     search();
+    },[]);
+
+    
+     
+     console.log(filters);
+      const path ="/products/";
 
   return(
 
@@ -63,9 +129,13 @@ function Navbar(){
                </div>
                 <div class="search">
                   <form>
-                   <input type="search" class="form-control" name="search" placeholder="chercher un produit, une marque ou une categorie"/>
-                   <button class="btn btn-dark">Search</button>
+                   <input type="search" class="form-control" autocomplete="off" value={searchTerm} onChange={(e)=>{setSearchTerm(e.target.value)}} name="search" placeholder="chercher un produit, une marque ou une categorie"/>
+                   <button class="btn btn-dark" type="submit">Search</button>
                   </form>
+                  <ul class="searchItems" >
+                     
+                  </ul>
+                  
                </div>
                <div class="items">
                   <ul class="items-menu">
@@ -99,7 +169,7 @@ function Navbar(){
                           <Link to="/cart"><br/>
                               <img class="icone" src="/images/shopping-cart-pngrepo-com.png"/>
                               <span class="badge">
-                                0
+                                {count ? count : "0"}
                                 <span class="visually-hidden">unread messages</span>
                               </span>
                           </Link></li>
@@ -117,8 +187,9 @@ function Navbar(){
                       
                         <ul class="menu" >
                         {Object.values(categories).map((categorie, index) => (
-                           <li key={index}><Link to="">{categorie.nom_categorie}</Link>
-                           </li>
+                           
+                               <li key={index}><Link to={path + categorie.Nom_cat}>{categorie.Nom_cat}</Link></li>
+                           
                          ))}   
                         </ul>
                       
@@ -129,11 +200,6 @@ function Navbar(){
                <ul class="items-menu">
                    <li><Link to="/">Offres</Link></li>
                    <li><Link to="">Services</Link>
-                        <ul class="menu">
-                           <li><Link to="">Services</Link></li>
-                           <li><Link to="">Services</Link></li>
-                           <li><Link to="">Services</Link></li>
-                        </ul>
                    </li>
                    <li><Link to="">Apropos</Link></li>
                    <li><Link to="">Contact</Link></li>

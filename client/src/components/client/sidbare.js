@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom";
 
 function Sidbare (){
+
     return(
         <nav class="container">
         <div class="sidebare">
             <ul class="nav flex-column">
             <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/client/compteClient">
+                <Link class="nav-link" aria-current="page" to="/client/compteClient">
                 <span data-feather="home"></span>
                 Mon compte
                 </Link>
             </li>
             <li class="nav-item">
-                <Link class="nav-link" to="/client/commandeClient">
+                <Link class="nav-link" to="/client/commandeClient" >
                 <span data-feather="file"></span>
                 Mes commandes
                 </Link>

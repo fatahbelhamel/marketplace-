@@ -1,7 +1,25 @@
+import { useState } from "react";
+import axios from "axios";
 import Sidbare from "./sidbare";
 
 
 function EspaceClient(){
+
+   const [image , setImage]= useState("");
+   const [name , setName]= useState("");
+
+   const getClient = async ()=>{
+      try{
+         const response = await axios.get("http://localhost:5000/client/getClient");
+         setImage(response.data.client.Img_clt);
+         setName(response.data.client.Nom_clt+ ' ' + response.data.client.Prenom_clt);
+      }catch(error){
+         console.log(error);
+      }
+   }
+
+   getClient();
+   const imagePath = "/images/";
 	return(
 
 		<div class="espace-client">
@@ -13,8 +31,8 @@ function EspaceClient(){
 			   <div class="content">
                  <div class="content-header">
                    <div class="">
-                      <img src="/images/img8.jpg" />
-                      <h5>fatah tech</h5>
+                      <img src={imagePath + image} />
+                      <h5>{name}</h5>
                    </div>
                  </div>
                  <hr/>

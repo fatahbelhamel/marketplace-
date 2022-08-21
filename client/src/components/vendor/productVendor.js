@@ -13,7 +13,7 @@ function ProductVendor(){
   const [id, setId] = useState("");
   const history = useHistory();
 
-
+/*
 const getVendorId = async (req,res)=>{
    try {
       const response = await axios.get("http://localhost:5000/vendor/token");
@@ -25,28 +25,28 @@ const getVendorId = async (req,res)=>{
 }
 useEffect(()=>{
    getVendorId();
-},[id]);
-
+},[]);
+*/
 
 const getProducts = async ()=>{
   try{
     console.log(id);
-    const response = await axios.get(`http://localhost:5000/vendor/product/vendor/${id}`);
-    setProducts(response.data.product);
-    console.log(products);
+    const response = await axios.get(`http://localhost:5000/vendor/products`);
+    setProducts(response.data.products);
+    //console.log(products);
     
   }catch(error){
     console.log(error);
   }
 }
+useEffect(()=>{
+   getProducts();
+},[]);
 
-getProducts();
 
-const deleteProduct = async (e, id)=>{
-  e.preventDefault();
+const deleteProduct = async(productId)=>{
   try{
-    console.log(`http://localhost:5000/product/${id}`);
-    await axios.delete(`http://localhost:5000/product/${id}`);
+    await axios.post(`http://localhost:5000/vendor/product/${productId}`);
     history.push("/vendor/productVendor");
   }catch(error){
     console.log(error);
@@ -72,24 +72,24 @@ const path ="/vendor/updateProduct/";
                   return (
                       <div class="product-card" style={{width:"250px",background:"white !important"}} key={index}>
                         <div class="product-tumb">
-                          <img src={imagePath + product.image} alt=""/>
+                          <img src={imagePath + product.Img_prod} alt=""/>
                         </div>
                         <div class="product-details">
-                          <span class="product-catagory">{product.categorie}</span>
-                          <h4><Link to="/product">{product.nom_produit}</Link></h4>
-                          <p>{product.description}</p>
+                          <span class="product-catagory">{product.Cat_prod}</span>
+                          <h4><Link to="/product">{product.Nom_prod}</Link></h4>
+                          
                           <div class="product-bottom-details">
-                            <div class="product-price">${product.prix}</div>
+                            <div class="product-price">${product.Prix}</div>
                             <div class="product-links">
                               <Link to={path + product.id}><i class="fa-solid fa-pen-to-square"></i></Link>
-                              <Link to="#" onSubmit={deleteProduct(product.id)}><i class="fa-solid fa-trash"></i></Link>
+                              <Link to="#" onClick={()=>deleteProduct(product.id)}><i class="fa-solid fa-trash"></i></Link>
                             </div>
                           </div>
                         </div>
 
                       </div> 
                     )
-                }) : "........"
+                }) : ""
 
 
                }

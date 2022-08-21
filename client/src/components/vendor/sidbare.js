@@ -6,7 +6,7 @@ function Sidbare (){
         <div class="sidebare">
             <ul class="nav flex-column">
             <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/vendor/compteVendor">
+                <Link class="nav-link" aria-current="page" to="/vendor/compteVendor">
                 <span data-feather="home"></span>
                 Mon compte
                 </Link>

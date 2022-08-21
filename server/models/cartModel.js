@@ -1,29 +1,25 @@
 import Sequelize from "sequelize";
 import db from "../database/db.js";
 
-const Cart = db.define('carts',{
-    client_id:{
+const Cart = db.define('panier',{
+    Id_clt:{
+        type :Sequelize.INTEGER(11),
+        allowNull :false
+    },
+    Nom_prod:{
         type :Sequelize.STRING(50),
         allowNull :false
     },
-    nom_produit:{
+    Img_prod:{
         type :Sequelize.STRING(50),
         allowNull :false
     },
-    image_produit:{
-        type :Sequelize.STRING(50),
-        allowNull :false
-    },
-    quantités:{
+    Quantités:{
         type :Sequelize.INTEGER(10),
         allowNull :false
     },
-    prix:{
+    Prix:{
         type :Sequelize.INTEGER(10),
-        allowNull :false
-    },
-    total:{
-        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     createdAt:Sequelize.DATE,

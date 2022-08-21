@@ -23,6 +23,7 @@ function Categories(props){
   getCategories();
 
 const imagePath = "/images/";
+const path ="/products/";
 
 	return(
   <>
@@ -30,8 +31,8 @@ const imagePath = "/images/";
      <div class="categories container"> 
      {Object.values(categories).map((categorie, index) => (
         <div class="categorie" key={index}>
-          <img src={imagePath + categorie.image}/>
-          <h5 class="categorie-name">{categorie.nom_categorie}</h5>
+          <img src={imagePath + categorie.Img_cat}/>
+          <Link to={path + categorie.Nom_cat}><h5 class="categorie-name">{categorie.Nom_cat}</h5></Link>
         </div>
       ))}  
       </div>

@@ -10,19 +10,19 @@ function Sidbare (){
     return(
         <div class="sidebar">
             <div class="top">
-                <span class="logo">DzMarket</span>
+                <span class="logo"><span>Dz</span>Market</span>
             </div>
-            <hr/>
+
             <div class="center">
                 <ul>
                     <p class="title">Main</p>
-                    <li><Link to="/admin/dashboard"><DashboardIcon/><span>dashboard</span></Link></li>
+                    <li><Link to="/admin/dashboard"><span class="icone"><DashboardIcon/></span><span>dashboard</span></Link></li>
                     <p class="title">Listes</p>
-                    <li><Link to="/admin/commandes"><ListAltIcon/><span>Commandes</span></Link></li>
-                    <li><Link to="/admin/categories"><CategoryIcon/><span>Categories</span></Link></li>
-                    <li><Link to="/admin/products"><InventoryIcon/><span>Produits</span></Link></li>
-                    <li><Link to="/admin/clients"><GroupIcon/><span>Clients</span></Link></li>
-                    <li><Link to="/admin/vendeurs"><SellIcon/><span>Vendeurs</span></Link></li>
+                    <li><Link to="/admin/commandes"><span class="icone"><ListAltIcon/></span><span>Commandes</span></Link></li>
+                    <li><Link to="/admin/categories"><span class="icone"><CategoryIcon/></span><span>Categories</span></Link></li>
+                    <li><Link to="/admin/produits"><span class="icone"><InventoryIcon/></span><span>Produits</span></Link></li>
+                    <li><Link to="/admin/clients"><span class="icone"><GroupIcon/></span><span>Clients</span></Link></li>
+                    <li><Link to="/admin/vendeurs"><span class="icone"><SellIcon/></span><span>Vendeurs</span></Link></li>
                     <p class="title">Utile</p>
                     <li><span>Status</span></li>
                     <li><span>Notifications</span></li>
@@ -33,10 +33,6 @@ function Sidbare (){
                     <li><span>profile</span></li>
                     <li><span>Déconnecter</span></li>
                 </ul>
-            </div>
-            <div class="bottom">
-                <div class="color-option"></div>
-                <div class="color-option"></div>
             </div>
         </div>
     )

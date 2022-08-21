@@ -9,6 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import Input from '@mui/material/Input';
 axios.defaults.withCredentials = true;
 
 //import { login } from "../actions/auth.actions.js";
@@ -23,23 +24,28 @@ function Register(){
     const [confpassword, setConfpassword] = useState('');
     const [adress, setAdress] = useState('');
     const [numero, setNumero] = useState('');
+    const [image, setImage] = useState('');
     const [message, setMessage] = useState('');
     const history = useHistory();
 
+    const fileOnChange = (e)=>{
+		    setImage(e.target.files[0]);
+	  }
 
     const vendorRegister = async (e)=>{
         e.preventDefault();
         try{
-          await axios.post("http://localhost:5000/vendor/register",{
-          	nom : nom,
-			      prenom : prenom,
-			      nom_boutique : nom_boutique,
-          	email : email,
-          	password : password,
-          	confpassword : confpassword,
-			      adress : adress,
-			      numero : numero
-          });
+        	const form = new FormData();
+          form.append('nom', nom);
+          form.append('prenom', prenom);
+          form.append('nom_boutique', nom_boutique);
+          form.append('email', email);
+          form.append('password', password);
+          form.append('confpassword', confpassword);
+          form.append('adress', adress);
+          form.append('numero', numero);
+          form.append('img_vend', image);
+          await axios.post("http://localhost:5000/vendor/register",form);
           history.push("/vendor/login");
         } catch(error){
           if(error.response){
@@ -170,6 +176,9 @@ function Register(){
 			                onChange={(e)=>setNumero(e.target.value)}
 		                />
 	              </Grid>
+	              <Grid item xs={12}>
+	                <Input type="file" name="img_vend" onChange={fileOnChange} />
+							  </Grid>
 	              <Grid item xs={12}>
 	                <FormControlLabel
 	                  control={<Checkbox required value="allowExtraEmails" color="default" />}

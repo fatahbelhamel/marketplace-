@@ -8,14 +8,14 @@ export const createCategory = async(req,res) =>{
     try{
         const categorie = await Category.findOne({
             where : {
-                nom_categorie : req.body.nom_categorie
+                Nom_cat : req.body.nom_categorie
             }
         });
         if(categorie) return res.status(400).json({ message : "categorie exist deja"});
         const imageFile = req.file.filename;
         await Category.create({
-            nom_categorie : nom_categorie,
-            image : imageFile
+            Nom_cat : nom_categorie,
+            Img_cat : imageFile
         });
         res.status(200).json({
             message:"categorie est bien créer"
@@ -38,6 +38,24 @@ export const getCategory = async(req,res) =>{
                 message:"error"
             });
         }
+    }catch(error){
+        res.status(400).json({ message : error});
+        console.log(error);
+    }    
+} 
+
+export const getCategoryImage = async(req,res) =>{
+    try{
+        const categorie = await Category.findOne({
+            where : {
+                Nom_cat : req.params.categorie
+            }
+        });
+
+        res.status(200).json({
+                categorie
+            });
+        
     }catch(error){
         res.status(400).json({ message : error});
         console.log(error);

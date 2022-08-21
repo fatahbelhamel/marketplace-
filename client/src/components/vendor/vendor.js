@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Testimonials from "../Home/testimonial.js";
 
 function Vendor(){
+  const [token,setToken]=useState("");
+  const refreshToken = async () =>{
+         try {
+          const response = await axios.get("http://localhost:5000/vendor/token");
+            setToken(response.data.vendorToken);
+         }catch (error) {
+            console.error(error);
+         }
+      }
+ 
+ useEffect(()=>{       
+       refreshToken();
+ },[]);  
 	return(
     <>
        <div class="vendor">
@@ -12,7 +27,7 @@ function Vendor(){
        	 	  <h1>Des millions d'acheteurs ont hâte de voir
                   Ce que vous avez en magasin
               </h1>
-              <Link to="/vendor/login"><button class="btn btn-outline-warning">commancer de vendre</button></Link>
+              <Link to={token ? "/vendor/espaceVendor" :"/vendor/login"}><button class="btn btn-outline-warning">commancer de vendre</button></Link>
        	 	</div> 	
        	 </div>
          <div class="vendor-services">

@@ -1,5 +1,5 @@
 import express from "express";
-import { createCategory, getCategory } from "../controllers/categoryController.js";
+import { createCategory, getCategory,getCategoryImage } from "../controllers/categoryController.js";
 import { verifyAdminToken } from "../middlweare/verifyToken.js";
 import multer from "multer";
 import path from "path";
@@ -28,7 +28,9 @@ const upload = multer({
 });
 const router = express.Router();
 
-router.route("/category/create").post(verifyAdminToken, upload.single('image'), createCategory);
+router.route("/category/create").post(verifyAdminToken, upload.single('Img_cat'), createCategory);
 router.route("/category").get(getCategory);
+router.route("/category_image/:categorie").get(getCategoryImage);
+
 
 export default router;

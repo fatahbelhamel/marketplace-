@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -7,6 +8,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import MessageIcon from '@mui/icons-material/Message';
 
 function Header (){
+
+    const history = useHistory();
+
+    const Logout = async () =>{
+         try {
+           await axios.post("http://localhost:5000/admin/logout");
+           history.push("/admin/login");
+         }catch (error) {
+            console.error(error);
+         }
+      }
+
     return(
         <div class="navbar">
             <div class="wrapper">
@@ -21,8 +34,14 @@ function Header (){
                     <div class="item">
                        <MessageIcon/>
                     </div>
-                    <div class="item">
-                       <img class="avatar" src="/images/user-pngrepo-com.png"/>
+                    <div class="item admin-profile">           
+                        <Link to="">
+                         <img class="avatar" src="/images/user-pngrepo-com.png"/>
+                        </Link>
+                         <ul class="menu">
+                           <li><Link to="">profile</Link></li>
+                           <li><Link to="" onClick={Logout}>déconnecter</Link></li>
+                         </ul>               
                     </div>
                 </div>
             </div>

@@ -1,32 +1,36 @@
 import Sequelize from "sequelize";
 import db from "../database/db.js";
 
-const Client = db.define('clients',{
-    nom:{
-    	type :Sequelize.STRING(50),
-    	allowNull :false
+const Client = db.define('client',{
+    Nom_clt:{
+        type :Sequelize.STRING(50),
+        allowNull :false
     },
-    prenom:{
-    	type :Sequelize.STRING(50),
-    	allowNull :false
+    Prenom_clt:{
+        type :Sequelize.STRING(50),
+        allowNull :false
     },
-    email:{
-    	type :Sequelize.STRING(50),
-    	allowNull :false
+    Email_clt:{
+        type :Sequelize.STRING(50),
+        allowNull :false
     },
-    password:{
-    	type : Sequelize.STRING(50),
-    	allowNull :false
+    Mdp_clt:{
+        type : Sequelize.STRING(50),
+        allowNull :false
     },
-    adress:{
-    	type :Sequelize.STRING(50),
-    	allowNull :false
+    Adress_clt:{
+        type :Sequelize.STRING(50),
+        allowNull :false
     },
-    numero:{
-    	type :Sequelize.STRING(50),
-    	allowNull :false
+    Num_tel_clt:{
+        type :Sequelize.INTEGER(20),
+        allowNull :false
     },
-    refresh_token:{
+    Img_clt:{
+        type : Sequelize.STRING(50),
+        allowNull :false
+    },
+    Token_clt:{
         type :Sequelize.TEXT
     },
     createdAt:Sequelize.DATE,

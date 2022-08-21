@@ -1,44 +1,45 @@
 import Sequelize from "sequelize";
 import db from "../database/db.js";
 
-const Product = db.define('products',{
-    nom_produit:{
+const Product = db.define('produit',{
+    Nom_prod:{
     	type :Sequelize.STRING(50),
     	allowNull :false
     },
-    description:{
+    Desc_prod:{
+        type :Sequelize.STRING(100),
+    	allowNull :false
+    },
+    Cat_prod:{
+        type :Sequelize.STRING(10),
+        allowNull :false
+    },
+    Marq_prod:{
+        type :Sequelize.STRING(10),
+        allowNull :false
+    },
+    Prix:{
+        type :Sequelize.INTEGER(10),
+        allowNull :false
+    },
+    Img_prod:{
         type :Sequelize.STRING(50),
     	allowNull :false
     },
-    categorie:{
-        type :Sequelize.STRING(50),
+    Quant_prod:{
+        type :Sequelize.INTEGER(10),
         allowNull :false
     },
-    marque:{
-        type :Sequelize.STRING(50),
+    Id_vend:{
+        type :Sequelize.INTEGER(11),
         allowNull :false
     },
-    prix:{
-        type :Sequelize.INTEGER,
+    Nom_boutique:{
+        type :Sequelize.STRING(20),
         allowNull :false
     },
-    vendeur_id:{
-        type :Sequelize.INTEGER,
-        allowNull :false
-    },
-    image:{
-        type :Sequelize.STRING(50),
-    	allowNull :false
-    },
-    quantités:{
-        type :Sequelize.INTEGER,
-        allowNull :false
-    },
-    status:{
-        type :Sequelize.STRING(50)
-    },
-    review:{
-        type :Sequelize.STRING(50)
+    Stat_prod:{
+        type :Sequelize.STRING(10)
     },
     createdAt:Sequelize.DATE,
     updatedAt:Sequelize.DATE,

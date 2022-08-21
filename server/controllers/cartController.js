@@ -13,22 +13,27 @@ export const addToCart = async(req,res) =>{
         });
 
         
-        const token = cookie.parse(req.headers.cookie).token;
-        const client_id = jwt_decode(token).id;
+        const clientToken = cookie.parse(req.headers.cookie).clientToken;
+        const client_id = jwt_decode(clientToken).id;
+        console.log(clientToken);
+        console.log(client_id);
 
         
         const productInCart = await Cart.findOne({
             where :{
-                nom_produit : product.nom_produit
+                Nom_prod : product.Nom_prod
             }
         });
 
         console.log(productInCart);
         
-        let quantity = productInCart.quantités+1;
+        
         
         if(productInCart){
-            await Cart.update({quantités : quantity},
+
+            let quantity = productInCart.Quantités+1;
+            
+            await Cart.update({Quantités : quantity},
                 {
                     where : {
                         id : productInCart.id
@@ -37,12 +42,11 @@ export const addToCart = async(req,res) =>{
             
         }else {
             await Cart.create({
-                client_id: client_id,
-                nom_produit: product.nom_produit,
-                image_produit:  product.image,
-                quantités: "1",
-                prix: product.prix,
-                total: product.prix
+                Id_clt: client_id,
+                Nom_prod: product.Nom_prod,
+                Img_prod:  product.Img_prod,
+                Quantités: "1",
+                Prix: product.Prix
             });
         }
         
@@ -59,20 +63,80 @@ export const addToCart = async(req,res) =>{
 
 export const getProductCart = async(req,res) =>{
     try{
-        const token = cookie.parse(req.headers.cookie).token;
-        const client_id = jwt_decode(token).id;
+        const clientToken = cookie.parse(req.headers.cookie).clientToken;
+        const client_id = jwt_decode(clientToken).id;
+        //console.log(client_id);
 
-        const productInCart = await Cart.findOne({
+        const productInCart = await Cart.findAll({
             where :{
-                client_id : client_id
+                Id_clt : client_id
             }
         });
-        res.status(200).json({
-            productInCart
+      
+        let total=0;
+        productInCart.forEach((product)=>{
+            total = total + (product.Prix*product.Quantités);
         });
         
+    
+
+        res.status(200).json({
+            productInCart,
+            total
+        });
+        //console.log(productInCart);
     }catch(error){
         res.status(400).json({ message : error});
         console.log(error);
     }    
+} 
+
+export const getProductCartCounter = async(req,res) =>{
+    try{
+
+        const count = await Cart.count({
+            where :{
+                Id_clt : req.params.id
+            }
+        });
+        res.status(200).json({
+            count
+        });
+       console.log(count);
+    }catch(error){
+        res.status(400).json({ message : error});
+        console.log(error);
+    }    
+} 
+
+export const deleteProductInCart = async(req,res) =>{
+    
+   try{
+        await Cart.destroy({
+            where :{
+                id : req.params.id
+            }
+        });
+        res.status(200).json({
+                message:"le produit est supprimé"
+        });
+    }catch(error){
+        res.status(400).json({ message : error});
+    }        
+} 
+
+export const updateQuantités = async(req,res) =>{
+    
+   try{
+        await Cart.update({
+            where :{
+                Quantités : req.params.quantités
+            }
+        });
+        res.status(200).json({
+                message:"le produit est supprimé"
+        });
+    }catch(error){
+        res.status(400).json({ message : error});
+    }        
 } 

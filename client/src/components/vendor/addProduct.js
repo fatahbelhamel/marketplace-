@@ -4,11 +4,15 @@ import { useHistory } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Sidbare from "./sidbare";
 axios.defaults.withCredentials = true;
 
@@ -17,6 +21,7 @@ function AddProduct(){
     const [nom_produit, setNom_produit] = useState('');
     const [description,setDescription] = useState('');
     const [categorie, setCategorie] = useState('');
+    const [categories, setCategories] = useState('');
     const [marque, setMarque] = useState('');
     const [prix, setPrix] = useState('');
     const [image, setImage] = useState('');
@@ -30,8 +35,6 @@ function AddProduct(){
 		
 	}
 
-	console.log(image);
-	console.log(quantités);
 
     const addProduct = async (e)=>{
         e.preventDefault();
@@ -44,7 +47,7 @@ function AddProduct(){
           form.append('categorie', categorie);
           form.append('marque', marque);
           form.append('prix', prix);
-          form.append('image', image);
+          form.append('Img_prod', image);
           form.append('quantity', quantités);
           
 
@@ -62,7 +65,18 @@ function AddProduct(){
 
     addProduct();
     
+		const getCategories = async()=>{
+		    try{
+		      const response = await axios.get("http://localhost:5000/category");
+		      setCategories(response.data.categories);
+		      console.log(response);
 
+		    }catch(error){
+		      console.log(error);
+		    }
+		  }
+
+		  getCategories();
 
 
 
@@ -82,48 +96,38 @@ function AddProduct(){
 		           <Grid container spacing={2}>
 	               <Grid item xs={12}>
 	                <TextField
-	        			margin="normal"
+	        			    margin="normal"
 		                autoComplete="given-name"
 		                name="nom_produit"
 		                required
-	                    fullWidth
+	                  fullWidth
 		                autoFocus
 		                id="nom_produit"
 		                label="Nom de produit"
-						value={nom_produit}
-			            onChange={(e)=>setNom_produit(e.target.value)}
+						        value={nom_produit}
+			              onChange={(e)=>setNom_produit(e.target.value)}
 		                />
 	              </Grid>
 	              <Grid item xs={12} >
-	                <TextField
-		                  margin="normal"
-		                  required
-		                  fullWidth
-		                  id="description"
-		                  label="Description"
-		                  name="description"
-						  value={description}
-			              onChange={(e)=>setDescription(e.target.value)}
-		                />
+									<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" value={description} onChange={(e)=>setDescription(e.target.value)} autoComplete="on"></textarea>
 	              </Grid>
-	              <Grid item xs={12}>
-	               <TextField
-        			      margin="normal"
-	                      autoComplete="given-name"
-	                      name="categorie"
-	                      required
-	                      fullWidth
-	                      id="categorie"
-	                      label="Categorie"
-					      value={categorie}
-		                  onChange={(e)=>setCategorie(e.target.value)}
-	                />
-	              </Grid>
-	              <select>
-                  <option>a</option>
-                  <option>b</option>
-                  <option>c</option>
-	              </select>
+								<Grid item xs={12}>
+									<select 
+										class="form-select" 
+										aria-label="Default select example"
+										style={{height:"55px", outline: "none"}}
+		                value={categorie}
+		                onChange={(e)=>setCategorie(e.target.value)}
+										>
+										  <option>select une categorie</option>
+										{
+											Object.values(categories).map((categorie)=>(
+											
+											  <option value={categorie.Nom_cat}>{categorie.Nom_cat}</option>
+											
+										))}	
+									</select>
+								</Grid>
 	              <Grid item xs={12}>
 	                <TextField
 			              margin="normal"
@@ -132,7 +136,6 @@ function AddProduct(){
 			              id="marque"
 			              label="Marque"
 			              name="marque"
-			              autoComplete="marque"
 			              value={marque}
 			              onChange={(e)=>setMarque(e.target.value)}
 			            />
@@ -164,7 +167,7 @@ function AddProduct(){
 			            />
 	              </Grid>
 	              <Grid item xs={12}>
-	                <Input type="file" name="image" onChange={fileOnChange} />
+	                <Input type="file" name="Img_prod" onChange={fileOnChange} />
 							  </Grid>
 	              <Grid item xs={12}>
 	                <button type="submit" class="btn btn-dark">Ajouter</button>
