@@ -500,6 +500,11 @@ a
     width: 100%;
 }
 
+.articles .product-tumb img:hover {
+	transform: scale(1.0);
+}
+
+
 .articles .product-details {
     padding: 30px;
 }

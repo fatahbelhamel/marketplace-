@@ -59,7 +59,7 @@ function Products(){
               
                 Object.values(products).map((product, index)=>{
                   return (
-                      <div class="product-card" style={{width:"300px",background:"white !important"}} key={index}>
+                      <div class="product-card" style={{width:"250px",background:"white !important"}} key={index}>
                         <div class="product-tumb">
                           <img src={imagePath + product.Img_prod} alt=""/>
                         </div>
