@@ -11,15 +11,15 @@ const Product = db.define('produit',{
     	allowNull :false
     },
     Cat_prod:{
-        type :Sequelize.STRING(10),
+        type :Sequelize.STRING(20),
         allowNull :false
     },
     Marq_prod:{
-        type :Sequelize.STRING(10),
+        type :Sequelize.STRING(20),
         allowNull :false
     },
     Prix:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     Img_prod:{
@@ -27,7 +27,7 @@ const Product = db.define('produit',{
     	allowNull :false
     },
     Quant_prod:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     Id_vend:{
@@ -39,10 +39,8 @@ const Product = db.define('produit',{
         allowNull :false
     },
     Stat_prod:{
-        type :Sequelize.STRING(10)
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
+        type :Sequelize.STRING(20)
+    }
     
 },{
     freezeTableName:true

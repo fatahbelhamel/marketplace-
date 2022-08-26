@@ -32,9 +32,7 @@ const Client = db.define('client',{
     },
     Token_clt:{
         type :Sequelize.TEXT
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
+    }
     
 },{
     freezeTableName:true

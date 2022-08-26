@@ -36,10 +36,7 @@ const Vendor = db.define('vendeur',{
     },
     Token_vend:{
         type :Sequelize.TEXT
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
-    
+    }
 },{
     freezeTableName:true
 });

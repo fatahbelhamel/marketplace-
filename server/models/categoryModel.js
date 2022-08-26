@@ -9,10 +9,7 @@ const Category = db.define('categorie',{
     Img_cat:{
         type :Sequelize.STRING(50),
         allowNull :false 
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
-    
+    }
 },{
     freezeTableName:true
 });

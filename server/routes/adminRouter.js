@@ -1,5 +1,5 @@
 import express from "express";
-import { login, logout, getvendors, getclients, getProducts, getCategory, getCommandes, getClientCount, getVendorCount, getProductCount, getCommandeCount, validProduct, validCommande, getCommandeById }  from "../controllers/adminController.js";
+import { login, logout, getvendors, getclients, getProducts, getCategory, getCommandes, getClientCount, getVendorCount, getProductCount, getCommandeCount, validProduct, getCommandeById }  from "../controllers/adminController.js";
 import { refreshTokenAdmin } from "../controllers/refreshToken.js";
 import { verifyAdminToken } from "../middlweare/verifyToken.js";
 import { validateLogin } from "../validation/validator.js";
@@ -18,7 +18,6 @@ router.route("/admin/vendorCount").get(verifyAdminToken,getVendorCount);
 router.route("/admin/productCount").get(verifyAdminToken,getProductCount);
 router.route("/admin/commandeCount").get(verifyAdminToken,getCommandeCount);
 router.route("/admin/validProduct/:id").put(verifyAdminToken,validProduct);
-router.route("/admin/validCommande/:id").put(verifyAdminToken,validCommande);
 router.route('/admin/commande/:id').get(verifyAdminToken, getCommandeById);
 
 

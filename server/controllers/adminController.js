@@ -208,21 +208,7 @@ export const validProduct = async(req,res) =>{
     }  
 }
 
-export const validCommande = async(req,res) =>{
-    try{
-        await Commande.update({Stat_cmds : "valid"},{
-            where :{
-                 id :  req.params.id
-                }
-        });
-        
-        res.status(200).json({
-               message : "produit validé"
-        });
-    }catch(error){
-        res.status(400).json({ message : error});
-    }  
-}
+
 
 export const getCommandeById = async(req,res) =>{
     try{

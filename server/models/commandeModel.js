@@ -6,6 +6,10 @@ const Commande = db.define('commande',{
         type :Sequelize.INTEGER(11),
         allowNull :false
     },
+    Id_vend:{
+        type :Sequelize.INTEGER(11),
+        allowNull :false
+    },
     Nom_clt:{
         type :Sequelize.STRING(50),
         allowNull :false
@@ -43,11 +47,11 @@ const Commande = db.define('commande',{
         allowNull :false
     },
     Quantités:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     Prix:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     Stat_cmds:{
@@ -56,9 +60,9 @@ const Commande = db.define('commande',{
     Paie_meth:{
         type :Sequelize.STRING(50)
     },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE
-    
+    Date_cmds:{
+        type :Sequelize.DATE
+    }
 },{
     freezeTableName:true
 });

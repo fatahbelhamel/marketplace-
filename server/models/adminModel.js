@@ -32,10 +32,7 @@ const Admin = db.define('admin',{
     },
     Token_adm:{
         type :Sequelize.TEXT
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
-    
+    }
 },{
     freezeTableName:true
 });

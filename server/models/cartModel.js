@@ -15,16 +15,13 @@ const Cart = db.define('panier',{
         allowNull :false
     },
     Quantités:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
     },
     Prix:{
-        type :Sequelize.INTEGER(10),
+        type :Sequelize.INTEGER(20),
         allowNull :false
-    },
-    createdAt:Sequelize.DATE,
-    updatedAt:Sequelize.DATE,
-    
+    }
 },{
     freezeTableName:true
 });

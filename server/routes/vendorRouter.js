@@ -2,6 +2,7 @@ import express from "express";
 import { refreshTokenVendor } from "../controllers/refreshToken.js";
 import { createProduct, getProductById, getProducts, getProductsByOrder, getProductByCategory,getProductByVendor, getProductByMarque, getProductMarque, updateProduct, deleteProduct, productCountByVendor, searchProduct } from "../controllers/productController.js";
 import { getvendorById, login, register, logout } from "../controllers/vendorController.js";
+import { getCommandes, validCommande, deleteCommande } from "../controllers/commandeController.js";
 import { verifyVendorToken } from "../middlweare/verifyToken.js";
 import multer from "multer";
 import path from "path";
@@ -54,6 +55,9 @@ router.route("/products/:categorie").get(getProductByCategory);
 router.route("/products/:categorie/marque").get(getProductMarque);
 router.route("/products/:key").get(searchProduct);
 
+router.route("/vendor/commandes").get(verifyVendorToken, getCommandes);
+router.route("/vendor/validCommande/:id").put(verifyVendorToken,validCommande);
+router.route("/vendor/deleteCommande/:id").post(verifyVendorToken,deleteCommande);
 
 
 export default router;

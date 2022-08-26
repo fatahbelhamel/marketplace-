@@ -18,7 +18,7 @@ import vendorRouter from "./routes/vendorRouter.js";
 import categoryRouter from "./routes/categoryRouter.js";
 import cartRouter from "./routes/cartRouter.js";
 import commandeRouter from "./routes/commandeRouter.js";
-
+import md5 from "md5";
 
 
 dotenv.config();
@@ -83,7 +83,7 @@ app.get('/',(req,res)=>{
 
 
 
-
+console.log(md5("123456"));
 
 
 
